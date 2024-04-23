@@ -7,6 +7,7 @@ Github action that creates bootable images to run Northstar vision.
 
 ### Settings
 To change network settings, modify `/etc/netplan/01-netcfg.yaml`
+
 To change northstar configs, modify various files in `/opt/northstar`
 
 ### Calibration
