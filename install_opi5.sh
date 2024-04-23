@@ -12,11 +12,19 @@ echo "pi:raspberry" | chpasswd
 
 apt-get update
 
+
 # Remove extra packages
 echo "Purging extra things"
 apt-get remove -y gdb gcc g++ linux-headers* libgcc*-dev snapd
-# apt-get remove -y snapd
 apt-get autoremove -y
+
+# Configure network
+# cat > /etc/netplan/00-default-nm-renderer.yaml <<EOF
+# network:
+  # renderer: NetworkManager
+# EOF
+
+# nmcli con mod ${interface} ipv4.addresses 10.54.19.12/8 ipv4.method "manual" ipv6.method "disabled"
 
 # Install necessary packages
 echo "Installing packages"
@@ -67,10 +75,18 @@ cd build
 
 #cmake -DWITH_GSTREAMER=ON -DWITH_FFMPEG=OFF
 
-#cmake \
-#-DCMAKE_TOOLCHAIN_FILE=/RobotCode2024/vision/opencv-4.6.0/platforms/linux/aarch64-gnu.toolchain.cmake \
-#-DWITH_GSTREAMER=ON \
-#-DWITH_FFMPEG=OFF \
+cmake \
+-DWITH_GSTREAMER=ON \
+-DWITH_FFMPEG=OFF \
+-DPYTHON3_EXECUTABLE=$(which python3)\
+-DOPENCV_PYTHON3_INSTALL_PATH=$(python3 -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") \
+-DBUILD_NEW_PYTHON_SUPPORT=ON \
+-DBUILD_opencv_python3=ON \ 
+-DHAVE_opencv_python3=ON 
+-DOPENCV_EXTRA_MODULES_PATH=opencv_contrib-4.6.0/modules 
+-DBUILD_LIST=aruco,python3,videoio 
+-DENABLE_LTO=ON ..
+
 #-DPYTHON3_EXECUTABLE="/python3-build/bin/python3" \
 #-DPYTHON3_LIBRARIES="/python3-host/lib/libpython3.10.so" \
 #-DPYTHON3_NUMPY_INCLUDE_DIRS="/RobotCode2024/vision/cross_venv/cross/lib/python3.10/site-packages/numpy/core/include" \ 
@@ -83,8 +99,8 @@ cd build
 #-DBUILD_LIST=aruco,python3,videoio 
 #-D ENABLE_LTO=ON ..
 
-#make -j$(nproc)
-#make install
+make -j$(nproc)
+make install
 
 cd ../..
 
