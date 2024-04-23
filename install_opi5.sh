@@ -82,9 +82,9 @@ cmake \
 -DOPENCV_PYTHON3_INSTALL_PATH=$(python3 -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") \
 -DBUILD_NEW_PYTHON_SUPPORT=ON \
 -DBUILD_opencv_python3=ON \ 
--DHAVE_opencv_python3=ON 
--DOPENCV_EXTRA_MODULES_PATH=opencv_contrib-4.6.0/modules 
--DBUILD_LIST=aruco,python3,videoio 
+-DHAVE_opencv_python3=ON \
+-DOPENCV_EXTRA_MODULES_PATH=opencv_contrib-4.6.0/modules \
+-DBUILD_LIST=aruco,python3,videoio \
 -DENABLE_LTO=ON ..
 
 #-DPYTHON3_EXECUTABLE="/python3-build/bin/python3" \
