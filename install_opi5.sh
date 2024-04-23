@@ -44,13 +44,17 @@ cd build
 
 # cmake -DCMAKE_TOOLCHAIN_FILE=/RobotCode2024/vision/opencv-4.6.0/platforms/linux/aarch64-gnu.toolchain.cmake -DWITH_GSTREAMER=ON -DWITH_FFMPEG=OFF -DPYTHON3_EXECUTABLE="/python3-build/bin/python3" -DPYTHON3_LIBRARIES="/python3-host/lib/libpython3.10.so" -DPYTHON3_NUMPY_INCLUDE_DIRS="/RobotCode2024/vision/cross_venv/cross/lib/python3.10/site-packages/numpy/core/include" -DPYTHON3_INCLUDE_PATH="/python3-host/include/python3.10" -DPYTHON3_CVPY_SUFFIX=".cpython-310-aarch64-linux-gnu.so" -D BUILD_NEW_PYTHON_SUPPORT=ON -D BUILD_opencv_python3=ON -D HAVE_opencv_python3=ON -D OPENCV_EXTRA_MODULES_PATH=/RobotCode2024/vision/opencv_contrib-4.6.0/modules -DBUILD_LIST=aruco,python3,videoio -D ENABLE_LTO=ON ..
 
-make -j$(nproc)
-make install
+# make -j$(nproc)
+# make install
 
 cd ../..
 
 # Install northstar under /opt/northstar
 echo "Installing Northstar"
+
+wget -O northstar.tar.gz https://github.com/BBScholar/northstar-5419/archive/refs/heads/master.tar.gz
+tar -zvxf northstar.tar.gz
+cp -R northstar/northstar /opt/northstar
 
 
 cat > /lib/systemd/system/northstar1.service <<EOF
@@ -74,8 +78,6 @@ RestartSec=1
 [Install]
 WantedBy=multi-user.target
 EOF
-
-
 
 cat > /lib/systemd/system/northstar2.service <<EOF
 [Unit]
@@ -101,10 +103,13 @@ EOF
 
 cp /lib/systemd/system/northstar1.service /etc/systemd/system/northstar1.service
 cp /lib/systemd/system/northstar2.service /etc/systemd/system/northstar2.service
+
 chmod 644 /etc/systemd/system/northstar1.service
 chmod 644 /etc/systemd/system/northstar2.service
+
 systemctl daemon-reload
+
 systemctl enable northstar1.service
-systemctl enable northstar2.service
+# systemctl enable northstar2.service
 
 
