@@ -52,7 +52,7 @@ cd opencv-4.6.0
 mkdir build
 cd build 
 
-make -j$(nproc)
-make install
+# make -j$(nproc)
+# make install
 
 cd ../..
