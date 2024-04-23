@@ -170,7 +170,7 @@ chmod 644 /etc/systemd/system/northstar2.service
 
 systemctl daemon-reload
 
-# systemctl enable northstar1.service
+systemctl enable northstar1.service
 # systemctl enable northstar2.service
 
 
