@@ -37,8 +37,7 @@ apt-get install -y python3 python3-pip
 # install python deps
 pip3 install -v numpy
 pip3 install --find-links https://tortall.net/~robotpy/wheels/2023/raspbian pyntcore
-# pip3 install -v pyntcore 
-pip3 install robotpy-wpimath==2023.4.3.1
+pip3 install --find-links https://tortall.net/~robotpy/wheels/2023/raspbian robotpy-wpimath==2023.4.3.1
 pip3 install -v pillow
 
 # check python3 version
@@ -65,4 +64,60 @@ cd ../..
 
 # Install northstar under /opt/northstar
 echo "Installing Northstar"
+
+
+cat > /lib/systemd/system/northstar1.service <<EOF
+[Unit]
+Description=Service that runs Northstar1
+
+[Service]
+WorkingDirectory=/opt/northstar
+# Run photonvision at "nice" -10, which is higher priority than standard
+Nice=-15
+# for non-uniform CPUs, like big.LITTLE, you want to select the big cores
+# look up the right values for your CPU
+# AllowedCPUs=4-7
+
+ExecStart=/usr/bin/python3  /opt/northstar/__init__.py /opt/northstar/config1.json /opt/northstar/calibration1.json
+# ExecStop=/bin/systemctl kill photonvision
+Type=simple
+Restart=on-failure
+RestartSec=1
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+
+
+cat > /lib/systemd/system/northstar2.service <<EOF
+[Unit]
+Description=Service that runs Northstar2
+
+[Service]
+WorkingDirectory=/opt/northstar
+# Run photonvision at "nice" -10, which is higher priority than standard
+Nice=-15
+# for non-uniform CPUs, like big.LITTLE, you want to select the big cores
+# look up the right values for your CPU
+# AllowedCPUs=4-7
+
+ExecStart=/usr/bin/python3  /opt/northstar/__init__.py /opt/northstar/config2.json /opt/northstar/calibration2.json
+# ExecStop=/bin/systemctl kill photonvision
+Type=simple
+Restart=on-failure
+RestartSec=1
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+cp /lib/systemd/system/northstar1.service /etc/systemd/system/northstar1.service
+cp /lib/systemd/system/northstar2.service /etc/systemd/system/northstar2.service
+chmod 644 /etc/systemd/system/northstar1.service
+chmod 644 /etc/systemd/system/northstar2.service
+systemctl daemon-reload
+systemctl enable northstar1.service
+systemctl enable northstar2.service
+
 
