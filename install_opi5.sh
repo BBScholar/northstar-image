@@ -113,3 +113,9 @@ systemctl enable northstar1.service
 # systemctl enable northstar2.service
 
 
+# Do we need any of this?
+rm -rf /var/lib/apt/lists/*
+apt-get clean
+
+rm -rf /usr/share/doc
+rm -rf /usr/share/locale/
