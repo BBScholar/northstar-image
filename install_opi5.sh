@@ -35,14 +35,18 @@ apt-get install -y clang
 apt-get install -y python3 python3-pip
 
 # install python deps
-pip3 install pyntcore robotpy-wpimath==2023.4.3.1
+pip3 install -v numpy
+pip3 install --find-links https://tortall.net/~robotpy/wheels/2023/raspbian pyntcore
+# pip3 install -v pyntcore 
+pip3 install robotpy-wpimath==2023.4.3.1
 pip3 install -v pillow
 
 # check python3 version
 echo "Checking python version"
 python3 --version
 
-# download opencv 
+# download and install opencv 
+echo "Downloading and installing opencv"
 wget -O opencv.tar.gz https://github.com/opencv/opencv/archive/refs/tags/4.6.0.tar.gz
 wget -O opencv_contrib.tar.gz https://github.com/opencv/opencv_contrib/archive/refs/tags/4.6.0.tar.gz
 tar -zvxf opencv.tar.gz
@@ -52,7 +56,13 @@ cd opencv-4.6.0
 mkdir build
 cd build 
 
-# make -j$(nproc)
-# make install
+# cmake -DCMAKE_TOOLCHAIN_FILE=/RobotCode2024/vision/opencv-4.6.0/platforms/linux/aarch64-gnu.toolchain.cmake -DWITH_GSTREAMER=ON -DWITH_FFMPEG=OFF -DPYTHON3_EXECUTABLE="/python3-build/bin/python3" -DPYTHON3_LIBRARIES="/python3-host/lib/libpython3.10.so" -DPYTHON3_NUMPY_INCLUDE_DIRS="/RobotCode2024/vision/cross_venv/cross/lib/python3.10/site-packages/numpy/core/include" -DPYTHON3_INCLUDE_PATH="/python3-host/include/python3.10" -DPYTHON3_CVPY_SUFFIX=".cpython-310-aarch64-linux-gnu.so" -D BUILD_NEW_PYTHON_SUPPORT=ON -D BUILD_opencv_python3=ON -D HAVE_opencv_python3=ON -D OPENCV_EXTRA_MODULES_PATH=/RobotCode2024/vision/opencv_contrib-4.6.0/modules -DBUILD_LIST=aruco,python3,videoio -D ENABLE_LTO=ON ..
+
+make -j$(nproc)
+make install
 
 cd ../..
+
+# Install northstar under /opt/northstar
+echo "Installing Northstar"
+
