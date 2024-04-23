@@ -1,4 +1,4 @@
-name: Build driver
+name: Build images
 on:
   push:
     branches: [ master ]
