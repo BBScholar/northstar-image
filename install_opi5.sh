@@ -14,35 +14,22 @@ apt-get update
 
 # Remove extra packages
 echo "Purging extra things"
-apt-get remove -y gdb gcc g++ linux-headers* libgcc*-dev
-apt-get remove -y snapd
+apt-get remove -y gdb gcc g++ linux-headers* libgcc*-dev snapd
+# apt-get remove -y snapd
 apt-get autoremove -y
 
 # Install necessary packages
 echo "Installing packages"
-apt-get install -y wget build-essential cmake libffi-dev libssl-dev zlib1g-dev
-apt-get install -y curl wget
+apt-get install -y wget build-essential cmake libffi-dev libssl-dev zlib1g-dev curl
 apt-get install -y libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev libtbbmalloc2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-dev gfortran openexr libatlas-base-dev
-apt-get install -y libgstreamer1.0-dev
-apt-get install -y libgstreamer-plugins-base1.0-dev gstreamer1.0-plugins-base
-apt-get install -y libgstreamer-plugins-bad1.0-dev  gstreamer1.0-plugins-bad
-apt-get install -y gstreamer1.0-plugins-good
-apt-get install -y gstreamer1.0-plugins-ugly
-apt-get install -y gstreamer1.0-libav gstreamer1.0-tools gstreamer1.0-gl
-apt-get install -y clang
-
-# install pip 
-apt-get install -y python3 python3-pip
+apt-get install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev gstreamer1.0-plugins-base libgstreamer-plugins-bad1.0-dev  gstreamer1.0-plugins-bad gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-tools gstreamer1.0-gl
+apt-get install -y clang python3 python3-pip
 
 # install python deps
 pip3 install -v numpy
 pip3 install --find-links https://tortall.net/~robotpy/wheels/2023/raspbian pyntcore
 pip3 install --find-links https://tortall.net/~robotpy/wheels/2023/raspbian robotpy-wpimath==2023.4.3.1
 pip3 install -v pillow
-
-# check python3 version
-echo "Checking python version"
-python3 --version
 
 # download and install opencv 
 echo "Downloading and installing opencv"
