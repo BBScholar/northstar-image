@@ -18,13 +18,30 @@ echo "Purging extra things"
 apt-get remove -y gdb gcc g++ linux-headers* libgcc*-dev snapd
 apt-get autoremove -y
 
+# configure hostname 
+hostnamectl set-hostname northstar
+
+# configure static ip
+cat > /etc/netplan/01-netcfg.yaml << EOF
+network:
+	version: 2
+	renderer: networkd
+	ethernets:
+		eth0:
+			dhcp4: no
+			addresses: [10.54.19.12/24]
+			routes:
+				- to: default
+				  via: 10.54.19.1
+EOF
+
+
+
 # Configure network
 # cat > /etc/netplan/00-default-nm-renderer.yaml <<EOF
 # network:
   # renderer: NetworkManager
 # EOF
-
-# nmcli con mod ${interface} ipv4.addresses 10.54.19.12/8 ipv4.method "manual" ipv6.method "disabled"
 
 # Install necessary packages
 echo "Installing packages"
@@ -36,76 +53,6 @@ pip3 install --find-links https://tortall.net/~robotpy/wheels/2023/raspbian pynt
 pip3 install --find-links https://tortall.net/~robotpy/wheels/2023/raspbian robotpy-wpimath==2023.4.3.1
 pip3 install -v pillow
 pip3 install -v opencv-contrib-python-headless
-
-# download and install opencv 
-echo "Downloading and installing opencv"
-#wget -O opencv.tar.gz https://github.com/opencv/opencv/archive/refs/tags/4.6.0.tar.gz
-#wget -O opencv_contrib.tar.gz https://github.com/opencv/opencv_contrib/archive/refs/tags/4.6.0.tar.gz
-#tar -zvxf opencv.tar.gz
-#tar -zvxf opencv_contrib.tar.gz
-
-#cd opencv-4.6.0
-#mkdir build
-#cd build 
-
-#cmake \
-    #-D CMAKE_BUILD_TYPE=RELEASE \
-    #-D CMAKE_INSTALL_PREFIX=$(python3 -c "import sys; print(sys.prefix)") \
-    #-D INSTALL_PYTHON_EXAMPLES=OFF \
-    #-D INSTALL_C_EXAMPLES=OFF \
-    #-D WITH_TBB=ON \
-    #-D WITH_CUDA=OFF \
-    #-D BUILD_opencv_cudacodec=OFF \
-    #-D ENABLE_FAST_MATH=1 \
-    #-D CUDA_FAST_MATH=1 \
-    #-D WITH_CUBLAS=1 \
-    #-D WITH_V4L=ON \
-    #-D WITH_QT=OFF \
-    #-D WITH_OPENGL=ON \
-    #-D WITH_GSTREAMER=ON \
-    #-D OPENCV_GENERATE_PKGCONFIG=ON \
-    #-D OPENCV_PC_FILE_NAME=opencv.pc \
-    #-D OPENCV_ENABLE_NONFREE=ON \
-    #-D OPENCV_PYTHON3_INSTALL_PATH=$(python3 -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") \
-    #-D OPENCV_EXTRA_MODULES_PATH=/tmp/opencv_contrib/modules \
-    #-D PYTHON_EXECUTABLE=$(which python3) \
-    #-D BUILD_EXAMPLES=OFF ..
-
-#cmake -DWITH_GSTREAMER=ON -DWITH_FFMPEG=OFF
-
-#cmake \
-#-DWITH_GSTREAMER=ON \
-#-DWITH_FFMPEG=OFF \
-#-DPYTHON3_EXECUTABLE=$(which python3)\
-#-DOPENCV_PYTHON3_INSTALL_PATH=$(python3 -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") \
-#-D BUILD_NEW_PYTHON_SUPPORT=ON \
-#-D BUILD_opencv_python3=ON \
-#-D HAVE_opencv_python3=ON \
-#-D OPENCV_EXTRA_MODULES_PATH=/northstar-image/opencv_contrib-4.6.0/modules \
-#-DBUILD_LIST=aruco,python3,videoio \
-#-DENABLE_LTO=ON ..
-
-#-DPYTHON3_EXECUTABLE="/python3-build/bin/python3" \
-#-DPYTHON3_LIBRARIES="/python3-host/lib/libpython3.10.so" \
-#-DPYTHON3_NUMPY_INCLUDE_DIRS="/RobotCode2024/vision/cross_venv/cross/lib/python3.10/site-packages/numpy/core/include" \ 
-#-DPYTHON3_INCLUDE_PATH="/python3-host/include/python3.10" \
-#-DPYTHON3_CVPY_SUFFIX=".cpython-310-aarch64-linux-gnu.so" \ 
-#-D BUILD_NEW_PYTHON_SUPPORT=ON \
-#-D BUILD_opencv_python3=ON \ 
-#-D HAVE_opencv_python3=ON 
-#-D OPENCV_EXTRA_MODULES_PATH=/RobotCode2024/vision/opencv_contrib-4.6.0/modules 
-#-DBUILD_LIST=aruco,python3,videoio 
-#-D ENABLE_LTO=ON ..
-
-#make -j$(nproc)
-#make install
-
-#cd ../..
-
-#rm opencv.tar.gz
-#rm opencv_contrib.tar.gz
-#rm -rf opencv
-#rm -rf opencv_contrib
 
 # Install northstar under /opt/northstar
 echo "Installing Northstar"
