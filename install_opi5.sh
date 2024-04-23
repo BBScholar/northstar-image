@@ -12,7 +12,6 @@ echo "pi:raspberry" | chpasswd
 
 apt-get update
 
-
 # Remove extra packages
 echo "Purging extra things"
 apt-get remove -y gdb gcc g++ linux-headers* libgcc*-dev snapd
@@ -118,7 +117,7 @@ chmod 644 /etc/systemd/system/northstar2.service
 
 systemctl daemon-reload
 
-systemctl enable northstar1.service
+# systemctl enable northstar1.service
 # systemctl enable northstar2.service
 
 
