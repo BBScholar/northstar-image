@@ -32,7 +32,7 @@ apt-get install -y gstreamer1.0-libav gstreamer1.0-tools gstreamer1.0-gl
 apt-get install -y clang
 
 # install pip 
-apt-get install -y python3 python3-pip3
+apt-get install -y python3 python3-pip
 
 # install python deps
 pip3 install pyntcore robotpy-wpimath==2023.4.3.1
