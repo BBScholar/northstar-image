@@ -34,6 +34,7 @@ network:
 				- to: default
 				  via: 10.54.19.1
 EOF
+netplan apply
 
 
 
