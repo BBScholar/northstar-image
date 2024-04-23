@@ -41,7 +41,7 @@ jobs:
 
     - name: Compress built image
       run: |
-        mv ${{ steps.install_deps.outputs.image }} photonvision_${{ matrix.name }}.img
+        mv ${{ steps.install_deps.outputs.image }} northstar_${{ matrix.name }}.img
         sudo xz -T 0 -v photonvision_${{ matrix.name }}.img
 
     - uses: actions/upload-artifact@master
