@@ -42,17 +42,56 @@ cd opencv-4.6.0
 mkdir build
 cd build 
 
-# cmake -DCMAKE_TOOLCHAIN_FILE=/RobotCode2024/vision/opencv-4.6.0/platforms/linux/aarch64-gnu.toolchain.cmake -DWITH_GSTREAMER=ON -DWITH_FFMPEG=OFF -DPYTHON3_EXECUTABLE="/python3-build/bin/python3" -DPYTHON3_LIBRARIES="/python3-host/lib/libpython3.10.so" -DPYTHON3_NUMPY_INCLUDE_DIRS="/RobotCode2024/vision/cross_venv/cross/lib/python3.10/site-packages/numpy/core/include" -DPYTHON3_INCLUDE_PATH="/python3-host/include/python3.10" -DPYTHON3_CVPY_SUFFIX=".cpython-310-aarch64-linux-gnu.so" -D BUILD_NEW_PYTHON_SUPPORT=ON -D BUILD_opencv_python3=ON -D HAVE_opencv_python3=ON -D OPENCV_EXTRA_MODULES_PATH=/RobotCode2024/vision/opencv_contrib-4.6.0/modules -DBUILD_LIST=aruco,python3,videoio -D ENABLE_LTO=ON ..
+#cmake \
+    #-D CMAKE_BUILD_TYPE=RELEASE \
+    #-D CMAKE_INSTALL_PREFIX=$(python3 -c "import sys; print(sys.prefix)") \
+    #-D INSTALL_PYTHON_EXAMPLES=OFF \
+    #-D INSTALL_C_EXAMPLES=OFF \
+    #-D WITH_TBB=ON \
+    #-D WITH_CUDA=OFF \
+    #-D BUILD_opencv_cudacodec=OFF \
+    #-D ENABLE_FAST_MATH=1 \
+    #-D CUDA_FAST_MATH=1 \
+    #-D WITH_CUBLAS=1 \
+    #-D WITH_V4L=ON \
+    #-D WITH_QT=OFF \
+    #-D WITH_OPENGL=ON \
+    #-D WITH_GSTREAMER=ON \
+    #-D OPENCV_GENERATE_PKGCONFIG=ON \
+    #-D OPENCV_PC_FILE_NAME=opencv.pc \
+    #-D OPENCV_ENABLE_NONFREE=ON \
+    #-D OPENCV_PYTHON3_INSTALL_PATH=$(python3 -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") \
+    #-D OPENCV_EXTRA_MODULES_PATH=/tmp/opencv_contrib/modules \
+    #-D PYTHON_EXECUTABLE=$(which python3) \
+    #-D BUILD_EXAMPLES=OFF ..
 
-# make -j$(nproc)
-# make install
+#cmake -DWITH_GSTREAMER=ON -DWITH_FFMPEG=OFF
+
+#cmake \
+#-DCMAKE_TOOLCHAIN_FILE=/RobotCode2024/vision/opencv-4.6.0/platforms/linux/aarch64-gnu.toolchain.cmake \
+#-DWITH_GSTREAMER=ON \
+#-DWITH_FFMPEG=OFF \
+#-DPYTHON3_EXECUTABLE="/python3-build/bin/python3" \
+#-DPYTHON3_LIBRARIES="/python3-host/lib/libpython3.10.so" \
+#-DPYTHON3_NUMPY_INCLUDE_DIRS="/RobotCode2024/vision/cross_venv/cross/lib/python3.10/site-packages/numpy/core/include" \ 
+#-DPYTHON3_INCLUDE_PATH="/python3-host/include/python3.10" \
+#-DPYTHON3_CVPY_SUFFIX=".cpython-310-aarch64-linux-gnu.so" \ 
+#-D BUILD_NEW_PYTHON_SUPPORT=ON \
+#-D BUILD_opencv_python3=ON \ 
+#-D HAVE_opencv_python3=ON 
+#-D OPENCV_EXTRA_MODULES_PATH=/RobotCode2024/vision/opencv_contrib-4.6.0/modules 
+#-DBUILD_LIST=aruco,python3,videoio 
+#-D ENABLE_LTO=ON ..
+
+#make -j$(nproc)
+#make install
 
 cd ../..
 
-rm opencv.tar.gz
-rm opencv_contrib.tar.gz
-rm -rf opencv
-rm -rf opencv_contrib
+#rm opencv.tar.gz
+#rm opencv_contrib.tar.gz
+#rm -rf opencv
+#rm -rf opencv_contrib
 
 # Install northstar under /opt/northstar
 echo "Installing Northstar"
@@ -117,7 +156,7 @@ chmod 644 /etc/systemd/system/northstar2.service
 
 systemctl daemon-reload
 
-systemctl enable northstar1.service
+# systemctl enable northstar1.service
 # systemctl enable northstar2.service
 
 
