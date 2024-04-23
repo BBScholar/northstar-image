@@ -1,0 +1,52 @@
+name: Build driver
+on:
+  push:
+    branches: [ master ]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: opi5
+            script: ./install_opi5.sh
+            base_image: https://github.com/Joshua-Riek/ubuntu-rockchip/releases/download/v1.33/ubuntu-22.04.3-preinstalled-server-arm64-orangepi-5.img.xz
+          - name: opi5plus
+            script: ./install_opi5.sh
+            base_image: https://github.com/Joshua-Riek/ubuntu-rockchip/releases/download/v1.33/ubuntu-22.04.3-preinstalled-server-arm64-orangepi-5-plus.img.xz
+    name: "Build for ${{ matrix.name }}"
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Fetch tags
+      run: git fetch --tags --force
+
+    - uses: pguyot/arm-runner-action@HEAD
+      id: install_deps
+      with:
+        image_additional_mb: 1500
+        bind_mount_repository: true
+        base_image: ${{ matrix.base_image }}
+        commands: |
+          chmod +x ${{matrix.script}}
+          ${{ matrix.script }}
+
+    - name: Compress built image
+      run: |
+        mv ${{ steps.install_deps.outputs.image }} photonvision_${{ matrix.name }}.img
+        sudo xz -T 0 -v photonvision_${{ matrix.name }}.img
+
+    - uses: actions/upload-artifact@master
+      with:
+        name: photonvision_${{ matrix.name }}.img.xz
+        path: photonvision_${{ matrix.name }}.img.xz
+        if-no-files-found: error
+        retention-days: 1
