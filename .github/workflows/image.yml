@@ -34,6 +34,7 @@ jobs:
       with:
         image_additional_mb: 1500
         bind_mount_repository: true
+        exit_on_fail: true
         base_image: ${{ matrix.base_image }}
         commands: |
           chmod +x ${{matrix.script}}
