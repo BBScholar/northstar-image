@@ -49,12 +49,20 @@ cd build
 
 cd ../..
 
+rm opencv.tar.gz
+rm opencv_contrib.tar.gz
+rm -rf opencv
+rm -rf opencv_contrib
+
 # Install northstar under /opt/northstar
 echo "Installing Northstar"
 
 wget -O northstar.tar.gz https://github.com/BBScholar/northstar-5419/archive/refs/heads/master.tar.gz
 tar -zvxf northstar.tar.gz
-cp -R northstar/northstar /opt/northstar
+cp -R northstar-5419-master/northstar /opt
+
+rm northstar.tar.gz
+rm -rf northstar-5419-master
 
 
 cat > /lib/systemd/system/northstar1.service <<EOF
