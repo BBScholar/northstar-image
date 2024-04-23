@@ -29,4 +29,30 @@ apt-get install -y libgstreamer-plugins-bad1.0-dev  gstreamer1.0-plugins-bad
 apt-get install -y gstreamer1.0-plugins-good
 apt-get install -y gstreamer1.0-plugins-ugly
 apt-get install -y gstreamer1.0-libav gstreamer1.0-tools gstreamer1.0-gl
+apt-get install -y clang
 
+# install pip 
+apt-get install -y python3 python3-pip3
+
+# install python deps
+pip3 install pyntcore robotpy-wpimath==2023.4.3.1
+pip3 install -v pillow
+
+# check python3 version
+echo "Checking python version"
+python3 --version
+
+# download opencv 
+wget -O opencv.tar.gz https://github.com/opencv/opencv/archive/refs/tags/4.6.0.tar.gz
+wget -O opencv_contrib.tar.gz https://github.com/opencv/opencv_contrib/archive/refs/tags/4.6.0.tar.gz
+tar -zvxf opencv.tar.gz
+tar -zvxf opencv_contrib.tar.gz
+
+cd opencv-4.6.0
+mkdir build
+cd build 
+
+make -j$(nproc)
+make install
+
+cd ../..
