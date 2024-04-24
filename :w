@@ -44,7 +44,7 @@ pip3 install -v numpy
 pip3 install --find-links https://tortall.net/~robotpy/wheels/2023/raspbian pyntcore
 pip3 install --find-links https://tortall.net/~robotpy/wheels/2023/raspbian robotpy-wpimath==2023.4.3.1
 pip3 install -v pillow
-pip3 install -v opencv-contrib-python-headless
+# pip3 install -v opencv-contrib-python-headless
 
 python3 -c "import cv2; print(cv2.getBuildInformation())"
 
