@@ -44,7 +44,16 @@ pip3 install -v numpy
 pip3 install --find-links https://tortall.net/~robotpy/wheels/2023/raspbian pyntcore
 pip3 install --find-links https://tortall.net/~robotpy/wheels/2023/raspbian robotpy-wpimath==2023.4.3.1
 pip3 install -v pillow
-pip3 install -v opencv-contrib-python-headless
+# pip3 install -v opencv-contrib-python-headless
+
+git clone --recursive https://github.com/opencv/opencv-python.git
+cd opencv-python
+export CMAKE_ARGS="-DWITH_GSTREAMER=ON"
+export ENABLE_CONTRIB=1
+export ENABLE_HEADLESS=1
+pip3 wheel . --verbose
+pip3 install opencv_python*.whl
+cd ..
 
 python3 -c "import cv2; print(cv2.getBuildInformation())"
 
