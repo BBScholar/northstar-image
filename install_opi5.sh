@@ -57,7 +57,7 @@ pip3 install --find-links https://tortall.net/~robotpy/wheels/2023/raspbian robo
 pip3 install -v pillow
 # pip3 install -v opencv-contrib-python-headless
 
-git clone --recursive https://github.com/opencv/opencv-python.git
+git clone  --depth 1 --recurse-submodules --shallow-submodules https://github.com/opencv/opencv-python.git
 cd opencv-python
 export CMAKE_ARGS="-DWITH_GSTREAMER=ON -DWITH_FFMPEG=OFF"
 export ENABLE_CONTRIB=1
