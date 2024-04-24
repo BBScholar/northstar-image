@@ -59,7 +59,7 @@ pip3 install -v pillow
 
 git clone  --depth 1 --recurse-submodules --shallow-submodules https://github.com/opencv/opencv-python.git
 cd opencv-python
-export CMAKE_ARGS="-DWITH_GSTREAMER=ON -DWITH_FFMPEG=OFF"
+export CMAKE_ARGS="-DWITH_GSTREAMER=ON -DWITH_GSTREAMER_0_10=OFF -DWITH_FFMPEG=OFF -DBUILD_LIST=aruco,python3,videoio"
 export ENABLE_CONTRIB=1
 export ENABLE_HEADLESS=1
 pip3 wheel . --verbose
