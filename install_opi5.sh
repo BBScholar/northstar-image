@@ -39,9 +39,10 @@ netplan apply
 echo "Installing packages"
 apt-get install -y wget build-essential cmake libffi-dev libssl-dev zlib1g-dev curl libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev libtbbmalloc2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-dev gfortran openexr libatlas-base-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev gstreamer1.0-plugins-base libgstreamer-plugins-bad1.0-dev  gstreamer1.0-plugins-bad gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-tools gstreamer1.0-gl clang python3 python3-pip gstreamer1.0-opencv libgstreamer1.0-0 libgstreamer1.0-dev
 
-apt-get install -y --no-install-recommends \
+apt-get install -y \
   gstreamer1.0-gl \
   gstreamer1.0-opencv \
+  gstreamer1.0-video \
   gstreamer1.0-plugins-bad \
   gstreamer1.0-plugins-good \
   gstreamer1.0-plugins-ugly \
@@ -49,6 +50,8 @@ apt-get install -y --no-install-recommends \
   libgstreamer-plugins-base1.0-dev \
   libgstreamer1.0-0 \
   libgstreamer1.0-dev
+ 
+apt-get install gstreamer1.0*
 
 # install python deps
 pip3 install -v numpy
@@ -57,13 +60,14 @@ pip3 install --find-links https://tortall.net/~robotpy/wheels/2023/raspbian robo
 pip3 install -v pillow
 # pip3 install -v opencv-contrib-python-headless
 
-git clone  --depth 1 --recurse-submodules --shallow-submodules https://github.com/opencv/opencv-python.git
+git clone  --depth 1 --recrse-submodules --shallow-submodules https://github.com/opencv/opencv-python.git
 cd opencv-python
 export CMAKE_ARGS="-DWITH_GSTREAMER=ON -DWITH_GSTREAMER_0_10=OFF -DWITH_FFMPEG=OFF -DBUILD_LIST=aruco,python3,videoio"
 export ENABLE_CONTRIB=1
 export ENABLE_HEADLESS=1
 pip3 wheel . --verbose
-pip3 install opencv_python*.whl
+ls
+pip3 install opencv_python.whl
 cd ..
 
 python3 -c "import cv2; print(cv2.getBuildInformation())"
