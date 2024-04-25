@@ -50,9 +50,16 @@ apt-get install -y \
   libgstreamer-plugins-base1.0-dev \
   libgstreamer1.0-0 \
   libgstreamer1.0-dev
- 
-apt-get install gstreamer1.0*
 
+git clone --depth=1 https://github.com/airockchip/librga.git
+cd librga/include
+sudo cp ./*.h /usr/local/include
+cd ..
+cd librga/libs/Linux/gcc-aarch64
+sudo cp ./lib* /usr/local/lib
+cd ../../../..
+ 
+# apt-get install -y gstreamer1.0*
 # install python deps
 pip3 install -v numpy
 pip3 install --find-links https://tortall.net/~robotpy/wheels/2023/raspbian pyntcore
@@ -69,6 +76,8 @@ pip3 wheel . --verbose
 ls
 pip3 install opencv_python.whl
 cd ..
+
+# cmake -DCMAKE_INSTALL_PREFIX=installroot -DCMAKE_TOOLCHAIN_FILE=/RobotCode2024/vision/opencv-4.6.0/platforms/linux/aarch64-gnu.toolchain.cmake -DWITH_GSTREAMER=ON -DWITH_FFMPEG=OFF -DPYTHON3_EXECUTABLE="/python3-build/bin/python3" -DPYTHON3_LIBRARIES="/python3-host/lib/libpython3.10.so" -DPYTHON3_NUMPY_INCLUDE_DIRS="/RobotCode2024/vision/cross_venv/cross/lib/python3.10/site-packages/numpy/core/include" -DPYTHON3_INCLUDE_PATH="/python3-host/include/python3.10" -DPYTHON3_CVPY_SUFFIX=".cpython-310-aarch64-linux-gnu.so" -D BUILD_NEW_PYTHON_SUPPORT=ON -D BUILD_opencv_python3=ON -D HAVE_opencv_python3=ON -D OPENCV_EXTRA_MODULES_PATH=/RobotCode2024/vision/opencv_contrib-4.6.0/modules -DBUILD_LIST=aruco,python3,videoio -D ENABLE_LTO=ON ..
 
 python3 -c "import cv2; print(cv2.getBuildInformation())"
 
