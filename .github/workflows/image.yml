@@ -38,7 +38,7 @@ jobs:
         base_image: ${{ matrix.base_image }}
         commands: |
           chmod +x ${{matrix.script}}
-          ${{ matrix.script }}
+          bash ${{ matrix.script }}
 
     - name: Compress built image
       run: |
