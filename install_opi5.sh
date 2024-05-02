@@ -20,9 +20,8 @@ apt install -y --no-install-recommends gstreamer1.0-rockchip1
 
 # Remove extra packages
 echo "Purging extra things"
-#apt-get remove -y gdb gcc g++ linux-headers* libgcc*-dev snapd
-# apt-get remove -y snapd
-# apt-get autoremove -y
+apt-get remove -y gdb gcc g++ linux-headers* libgcc*-dev snapd
+apt-get autoremove -y
 
 # configure hostname 
 hostnamectl set-hostname northstar
@@ -44,24 +43,11 @@ netplan apply
 
 # Install necessary packages
 echo "Installing packages"*
-apt get install -y wget build-essential cmake make libffi-dev libssl-dev zlib1g-dev curl libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev libtbbmalloc2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-dev gfortran openexr libatlas-base-dev gcc g++ libgcc*-dev clang
+apt get install -y --no-install-recommends wget build-essential cmake make libffi-dev libssl-dev zlib1g-dev curl libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev libtbbmalloc2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-dev gfortran openexr libatlas-base-dev clang
 
-# apt-get install --no-install-recommends -y \
-#   gstreamer1.0-gl \
-#   gstreamer1.0-opencv \
-#   gstreamer1.0-video \
-#   gstreamer1.0-plugins-bad \
-#   gstreamer1.0-plugins-good \
-#   gstreamer1.0-plugins-ugly \
-#   gstreamer1.0-tools \
-#   libgstreamer-plugins-base1.0-dev \
-#   libgstreamer1.0-0 \
-#   libgstreamer1.0-dev
-#
 apt install -y --no-install-recommends python3-pip
 apt install -y --no-install-recommends python3-pil gstreamer1.0-gl gstreamer1.0-opencv gstreamer1.0-plugins-bad gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-tools libgstreamer-plugins-base1.0-dev libgstreamer1.0-0 libgstreamer1.0-dev
 
-# apt-get install -y gstreamer1.0*
 # install python deps
 # pip3 install -v numpy
 # pip3 install --find-links https://tortall.net/~robotpy/wheels/2023/raspbian pyntcore
@@ -79,8 +65,6 @@ pip3 install opencv_python*.whl
 cd ..
 
 pip3 install --extra-index-url https://wpilib.jfrog.io/artifactory/api/pypi/wpilib-python-release-2024/simple/ robotpy
-
-# cmake -DCMAKE_INSTALL_PREFIX=installroot -DCMAKE_TOOLCHAIN_FILE=/RobotCode2024/vision/opencv-4.6.0/platforms/linux/aarch64-gnu.toolchain.cmake -DWITH_GSTREAMER=ON -DWITH_FFMPEG=OFF -DPYTHON3_EXECUTABLE="/python3-build/bin/python3" -DPYTHON3_LIBRARIES="/python3-host/lib/libpython3.10.so" -DPYTsudo pip3 install --extra-index-url https://wpilib.jfrog.io/artifactory/api/pypi/wpilib-python-release-2024/simple/ robotpyHON3_NUMPY_INCLUDE_DIRS="/RobotCode2024/vision/cross_venv/cross/lib/python3.10/site-packages/numpy/core/include" -DPYTHON3_INCLUDE_PATH="/python3-host/include/python3.10" -DPYTHON3_CVPY_SUFFIX=".cpython-310-aarch64-linux-gnu.so" -D BUILD_NEW_PYTHON_SUPPORT=ON -D BUILD_opencv_python3=ON -D HAVE_opencv_python3=ON -D OPENCV_EXTRA_MODULES_PATH=/RobotCode2024/vision/opencv_contrib-4.6.0/modules -DBUILD_LIST=aruco,python3,videoio -D ENABLE_LTO=ON ..
 
 python3 -c "import cv2; print(cv2.getBuildInformation())"
 
