@@ -43,7 +43,7 @@ netplan apply
 
 # Install necessary packages
 echo "Installing packages"*
-apt get install -y --no-install-recommends wget build-essential cmake make libffi-dev libssl-dev zlib1g-dev curl libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev libtbbmalloc2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-dev gfortran openexr libatlas-base-dev clang
+apt get install -y --no-install-recommends wget build-essential cmake make libffi-dev libssl-dev zlib1g-dev curl libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev libtbbmalloc2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-dev gfortran openexr libatlas-base-dev clang clang++ llvm-dev
 
 apt install -y --no-install-recommends python3-pip
 apt install -y --no-install-recommends python3-pil gstreamer1.0-gl gstreamer1.0-opencv gstreamer1.0-plugins-bad gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-tools libgstreamer-plugins-base1.0-dev libgstreamer1.0-0 libgstreamer1.0-dev
