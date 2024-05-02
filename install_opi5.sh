@@ -14,7 +14,8 @@ apt-get update
 
 # Remove extra packages
 echo "Purging extra things"
-apt-get remove -y gdb gcc g++ linux-headers* libgcc*-dev snapd
+#apt-get remove -y gdb gcc g++ linux-headers* libgcc*-dev snapd
+apt-get remove -y snapd
 apt-get autoremove -y
 
 # configure hostname 
