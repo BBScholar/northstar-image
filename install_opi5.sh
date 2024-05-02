@@ -10,16 +10,18 @@ else
 fi
 echo "pi:raspberry" | chpasswd
 
-sudo add-apt-repository ppa:liujianfeng1994/panfork-mesa            
-sudo add-apt-repository ppa:liujianfeng1994/rockchip-multimedia
-apt-get update
+add-apt-repository ppa:liujianfeng1994/panfork-mesa            
+add-apt-repository ppa:liujianfeng1994/rockchip-multimedia
+apt update
 apt dist-upgrade
+apt install -y --no-install-recommends mali-g610-firmware rockchip-multimedia-config
+apt install -y --no-install-recommends gstreamer1.0-rockchip
 
 # Remove extra packages
 echo "Purging extra things"
 #apt-get remove -y gdb gcc g++ linux-headers* libgcc*-dev snapd
-apt-get remove -y snapd
-apt-get autoremove -y
+# apt-get remove -y snapd
+# apt-get autoremove -y
 
 # configure hostname 
 hostnamectl set-hostname northstar
@@ -56,13 +58,12 @@ echo "Installing packages"
 #   libgstreamer1.0-dev
 #
 apt install -y --no-install-recommends python3-pip
-apt install -y --no-install-recommends mali-g610-firmware rockchip-multimedia-config
 apt install -y --no-install-recommends gstreamer1.0-rockchip python3-pil gstreamer1.0-gl gstreamer1.0-opencv gstreamer1.0-plugins-bad gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-tools libgstreamer-plugins-base1.0-dev libgstreamer1.0-0 libgstreamer1.0-dev
 
-git clone --depth=1 https://github.com/airockchip/librga.git
+# git clone --depth=1 https://github.com/airockchip/librga.git
 
-cp -r librga/include/*.h /usr/local/include
-cp -r librga/libs/Linux/gcc-aarch64/lib* /usr/local/lib
+# cp -r librga/include/*.h /usr/local/include
+# cp -r librga/libs/Linux/gcc-aarch64/lib* /usr/local/lib
 # cp ./*.h /usr/local/include
 # cd ..
 # cd libs/Linux/gcc-aarch64
