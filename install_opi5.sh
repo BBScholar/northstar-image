@@ -43,8 +43,8 @@ EOF
 netplan apply
 
 # Install necessary packages
-echo "Installing packages"
-apt get install --no-install-recommends -y wget build-essential cmake libffi-dev libssl-dev zlib1g-dev curl libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev libtbbmalloc2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-dev gfortran openexr libatlas-base-dev clang 
+echo "Installing packages"*
+apt get install --no-install-recommends -y wget build-essential cmake libffi-dev libssl-dev zlib1g-dev curl libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev libtbbmalloc2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-dev gfortran openexr libatlas-base-dev gcc g++ libgcc*-dev clang 
 
 # apt-get install --no-install-recommends -y \
 #   gstreamer1.0-gl \
@@ -52,7 +52,7 @@ apt get install --no-install-recommends -y wget build-essential cmake libffi-dev
 #   gstreamer1.0-video \
 #   gstreamer1.0-plugins-bad \
 #   gstreamer1.0-plugins-good \
-#   gstreamer1.0-plugins-ugly \
+#   gstreamer1.0-plugins-ugly \
 #   gstreamer1.0-tools \
 #   libgstreamer-plugins-base1.0-dev \
 #   libgstreamer1.0-0 \
@@ -61,16 +61,6 @@ apt get install --no-install-recommends -y wget build-essential cmake libffi-dev
 apt install -y --no-install-recommends python3-pip
 apt install -y --no-install-recommends python3-pil gstreamer1.0-gl gstreamer1.0-opencv gstreamer1.0-plugins-bad gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-tools libgstreamer-plugins-base1.0-dev libgstreamer1.0-0 libgstreamer1.0-dev
 
-# git clone --depth=1 https://github.com/airockchip/librga.git
-
-# cp -r librga/include/*.h /usr/local/include
-# cp -r librga/libs/Linux/gcc-aarch64/lib* /usr/local/lib
-# cp ./*.h /usr/local/include
-# cd ..
-# cd libs/Linux/gcc-aarch64
-# sudo cp ./lib* /usr/local/lib
-# cd ../../../..
- 
 # apt-get install -y gstreamer1.0*
 # install python deps
 # pip3 install -v numpy
