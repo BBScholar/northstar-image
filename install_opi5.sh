@@ -15,7 +15,8 @@ add-apt-repository ppa:liujianfeng1994/rockchip-multimedia
 apt update
 apt dist-upgrade
 apt install -y --no-install-recommends mali-g610-firmware rockchip-multimedia-config
-apt install -y --no-install-recommends gstreamer1.0-rockchip
+apt search rockchip | grep gstream
+# apt install -y --no-install-recommends gstreamer1.0-rockchip
 
 # Remove extra packages
 echo "Purging extra things"
