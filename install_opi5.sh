@@ -63,23 +63,24 @@ cp -r librga/libs/Linux/gcc-aarch64/lib* /usr/local/lib
  
 # apt-get install -y gstreamer1.0*
 # install python deps
-pip3 install -v numpy
-pip3 install --find-links https://tortall.net/~robotpy/wheels/2023/raspbian pyntcore
-pip3 install --find-links https://tortall.net/~robotpy/wheels/2023/raspbian robotpy-wpimath==2023.4.3.1
-pip3 install -v pillow
+# pip3 install -v numpy
+# pip3 install --find-links https://tortall.net/~robotpy/wheels/2023/raspbian pyntcore
+# pip3 install --find-links https://tortall.net/~robotpy/wheels/2023/raspbian robotpy-wpimath==2023.4.3.1
+# pip3 install -v pillow
 # pip3 install -v opencv-contrib-python-headless
 
 git clone  --depth 1 --recurse-submodules --shallow-submodules https://github.com/opencv/opencv-python.git
 cd opencv-python
-export CMAKE_ARGS="-DWITH_GSTREAMER=ON -DWITH_GSTREAMER_0_10=OFF -DWITH_FFMPEG=OFF -DBUILD_LIST=aruco,python3,videoio"
-export ENABLE_CONTRIB=1
 export ENABLE_HEADLESS=1
+export CMAKE_ARGS="-DWITH_GSTREAMER=ON -DWITH_FFMPEG=OFF"
+sudo pip3 install --upgrade pip wheel
 pip3 wheel . --verbose
-ls
-pip3 install opencv_python.whl
+pip3 install opencv_python*.whl
 cd ..
 
-# cmake -DCMAKE_INSTALL_PREFIX=installroot -DCMAKE_TOOLCHAIN_FILE=/RobotCode2024/vision/opencv-4.6.0/platforms/linux/aarch64-gnu.toolchain.cmake -DWITH_GSTREAMER=ON -DWITH_FFMPEG=OFF -DPYTHON3_EXECUTABLE="/python3-build/bin/python3" -DPYTHON3_LIBRARIES="/python3-host/lib/libpython3.10.so" -DPYTHON3_NUMPY_INCLUDE_DIRS="/RobotCode2024/vision/cross_venv/cross/lib/python3.10/site-packages/numpy/core/include" -DPYTHON3_INCLUDE_PATH="/python3-host/include/python3.10" -DPYTHON3_CVPY_SUFFIX=".cpython-310-aarch64-linux-gnu.so" -D BUILD_NEW_PYTHON_SUPPORT=ON -D BUILD_opencv_python3=ON -D HAVE_opencv_python3=ON -D OPENCV_EXTRA_MODULES_PATH=/RobotCode2024/vision/opencv_contrib-4.6.0/modules -DBUILD_LIST=aruco,python3,videoio -D ENABLE_LTO=ON ..
+pip3 install --extra-index-url https://wpilib.jfrog.io/artifactory/api/pypi/wpilib-python-release-2024/simple/ robotpy
+
+# cmake -DCMAKE_INSTALL_PREFIX=installroot -DCMAKE_TOOLCHAIN_FILE=/RobotCode2024/vision/opencv-4.6.0/platforms/linux/aarch64-gnu.toolchain.cmake -DWITH_GSTREAMER=ON -DWITH_FFMPEG=OFF -DPYTHON3_EXECUTABLE="/python3-build/bin/python3" -DPYTHON3_LIBRARIES="/python3-host/lib/libpython3.10.so" -DPYTsudo pip3 install --extra-index-url https://wpilib.jfrog.io/artifactory/api/pypi/wpilib-python-release-2024/simple/ robotpyHON3_NUMPY_INCLUDE_DIRS="/RobotCode2024/vision/cross_venv/cross/lib/python3.10/site-packages/numpy/core/include" -DPYTHON3_INCLUDE_PATH="/python3-host/include/python3.10" -DPYTHON3_CVPY_SUFFIX=".cpython-310-aarch64-linux-gnu.so" -D BUILD_NEW_PYTHON_SUPPORT=ON -D BUILD_opencv_python3=ON -D HAVE_opencv_python3=ON -D OPENCV_EXTRA_MODULES_PATH=/RobotCode2024/vision/opencv_contrib-4.6.0/modules -DBUILD_LIST=aruco,python3,videoio -D ENABLE_LTO=ON ..
 
 python3 -c "import cv2; print(cv2.getBuildInformation())"
 
