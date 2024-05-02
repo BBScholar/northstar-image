@@ -13,6 +13,7 @@ echo "pi:raspberry" | chpasswd
 sudo add-apt-repository ppa:liujianfeng1994/panfork-mesa            
 sudo add-apt-repository ppa:liujianfeng1994/rockchip-multimedia
 apt-get update
+apt dist-upgrade
 
 # Remove extra packages
 echo "Purging extra things"
@@ -54,9 +55,9 @@ echo "Installing packages"
 #   libgstreamer1.0-0 \
 #   libgstreamer1.0-dev
 #
-sudo apt install -y --no-install-recommends python3-pip
-sudo apt install -y --no-install-recommends mali-g610-firmware rockchip-multimedia-config
-sudo apt install -y --no-install-recommends gstreamer1.0-rockchip python3-pil gstreamer1.0-gl gstreamer1.0-opencv gstreamer1.0-plugins-bad gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-tools libgstreamer-plugins-base1.0-dev libgstreamer1.0-0 libgstreamer1.0-dev
+apt install -y --no-install-recommends python3-pip
+apt install -y --no-install-recommends mali-g610-firmware rockchip-multimedia-config
+apt install -y --no-install-recommends gstreamer1.0-rockchip python3-pil gstreamer1.0-gl gstreamer1.0-opencv gstreamer1.0-plugins-bad gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-tools libgstreamer-plugins-base1.0-dev libgstreamer1.0-0 libgstreamer1.0-dev
 
 git clone --depth=1 https://github.com/airockchip/librga.git
 
