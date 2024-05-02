@@ -59,6 +59,7 @@ git clone  --depth 1 --recurse-submodules --shallow-submodules https://github.co
 cd opencv-python
 export ENABLE_HEADLESS=1
 export CMAKE_ARGS="-DWITH_GSTREAMER=ON -DWITH_FFMPEG=OFF"
+export CC="/usr/bin/clang"
 export CXX="/usr/bin/clang++"
 sudo pip3 install --upgrade pip wheel
 pip3 wheel . --verbose
