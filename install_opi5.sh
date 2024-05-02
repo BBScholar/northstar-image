@@ -44,7 +44,7 @@ netplan apply
 
 # Install necessary packages
 echo "Installing packages"*
-apt get install --no-install-recommends -y wget build-essential cmake libffi-dev libssl-dev zlib1g-dev curl libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev libtbbmalloc2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-dev gfortran openexr libatlas-base-dev gcc g++ libgcc*-dev clang 
+apt get install -y wget build-essential cmake make libffi-dev libssl-dev zlib1g-dev curl libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev libtbbmalloc2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-dev gfortran openexr libatlas-base-dev gcc g++ libgcc*-dev clang
 
 # apt-get install --no-install-recommends -y \
 #   gstreamer1.0-gl \
