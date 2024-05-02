@@ -16,7 +16,7 @@ apt update
 apt dist-upgrade
 apt install -y --no-install-recommends mali-g610-firmware rockchip-multimedia-config
 apt search rockchip | grep gstream
-# apt install -y --no-install-recommends gstreamer1.0-rockchip
+apt install -y --no-install-recommends gstreamer1.0-rockchip1
 
 # Remove extra packages
 echo "Purging extra things"
